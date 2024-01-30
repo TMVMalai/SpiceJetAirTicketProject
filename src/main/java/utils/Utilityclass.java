@@ -63,6 +63,7 @@ public class Utilityclass extends ExceptionLogger {
 			WebDriverManager.chromedriver().driverVersion("latest").setup();
 			ChromeOptions chromeOptions = new ChromeOptions();
 			chromeOptions.addArguments(prop.getProperty("browserMode"));
+			chromeOptions.addArguments("--window-size=1920,1080");
 			chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
 			chromeOptions.addArguments("--disable-notifications");
 			driver = new ChromeDriver(chromeOptions);

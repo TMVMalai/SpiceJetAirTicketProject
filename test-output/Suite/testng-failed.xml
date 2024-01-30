@@ -9,18 +9,11 @@
       <class name="testCases.FlightSearchValidation">
         <methods>
           <include name="suiteSetup"/>
-          <include name="roundTripFunctionality"/>
+          <include name="roundTripFunctionality" invocation-numbers="0"/>
           <include name="close"/>
-          <include name="searchFlightFunctionality"/>
+          <include name="searchFlightFunctionality" invocation-numbers="0"/>
         </methods>
       </class> <!-- testCases.FlightSearchValidation -->
-      <class name="testCases.HomePageValidation">
-        <methods>
-          <include name="suiteSetup"/>
-          <include name="close"/>
-          <include name="HomePageValidationFunctionality"/>
-        </methods>
-      </class> <!-- testCases.HomePageValidation -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->
