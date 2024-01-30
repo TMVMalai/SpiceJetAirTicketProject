@@ -89,7 +89,8 @@ public class RoundTripPage extends Utilityclass{
 	@FindBy(xpath="//div[text()='Modify']")
 	private WebElement modifyButton;
 	
-	
+	@FindBy(xpath="//div[@data-testid='common-proceed-to-pay']")
+	private WebElement proceedtoPayButton;
 	
 	public void SelectFromAndDestination(String fromOrDestination, String fromOrDestinationPlace) {
 		 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
@@ -326,21 +327,19 @@ public class RoundTripPage extends Utilityclass{
 	}
 	
 	public void switchToIframe(String element) {
-	    By iframeLocator = By.xpath("//iframe[@class='" + element + "']");
-	    Wait<WebDriver> fluentWait = new FluentWait<>(driver)
-	            .withTimeout(Duration.ofSeconds(30))
-	            .pollingEvery(Duration.ofSeconds(5))
-	            .ignoring(NoSuchElementException.class);
-	    fluentWait.until(driver -> {
-	        WebElement iframeElement = driver.findElement(iframeLocator);
-	        driver.switchTo().frame(iframeElement);
-	        return true;
-	    });
+	  WebElement iframe = driver.findElement(By.xpath("//iframe[@class='"+element+"']"));
+	  WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(30L));
+	  setImplicitWait(20);
+	  wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(iframe));
 	}
 
 	
 	public void clickModifyButton() {
 		modifyButton.click();
+	}
+	
+	public void clickProceedtoPay() {
+		proceedtoPayButton.click();
 	}
 
 }

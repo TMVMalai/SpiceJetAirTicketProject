@@ -8,11 +8,6 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Random;
 import java.util.Set;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
-
 import org.apache.commons.io.FileUtils;
 import org.json.JSONException;
 import org.openqa.selenium.By;
@@ -36,7 +31,6 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 import spiceJet.constants.FrameWorkConstants;
 
@@ -45,10 +39,10 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class Utilityclass extends ExceptionLogger{
+public class Utilityclass extends ExceptionLogger {
 	public static WebDriver driver;
 	public static Properties prop;
-	
+
 	public static String readProperty(String key) throws Exception {
 		String propath = System.getProperty("user.dir") + "/src/main/resources/Data.properties";
 		FileInputStream fileInput = new FileInputStream(propath);
@@ -68,7 +62,7 @@ public class Utilityclass extends ExceptionLogger{
 		case "chrome":
 			WebDriverManager.chromedriver().driverVersion("latest").setup();
 			ChromeOptions chromeOptions = new ChromeOptions();
-			// chromeOptions.addArguments(prop.getProperty("browserMode"));
+			chromeOptions.addArguments(prop.getProperty("browserMode"));
 			chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
 			chromeOptions.addArguments("--disable-notifications");
 			driver = new ChromeDriver(chromeOptions);
@@ -139,7 +133,7 @@ public class Utilityclass extends ExceptionLogger{
 		boolean isExists = false;
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
 		try {
-			
+
 			isExists = !driver.findElements(WebElement).isEmpty();
 		} catch (Exception e) {
 			logException(e);
@@ -148,19 +142,19 @@ public class Utilityclass extends ExceptionLogger{
 		}
 		return isExists;
 	}
-	
+
 	public static boolean elementExists(WebElement element) {
-		boolean isExists =false;
+		boolean isExists = false;
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
 		try {
 			isExists = element.isDisplayed();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		}
 		return isExists;
-		
+
 	}
 
 	public static boolean isElementExists(By WebElement, String ElementName) {
@@ -201,68 +195,102 @@ public class Utilityclass extends ExceptionLogger{
 	public static void SendText(WebElement textArea, String textMessage) {
 		textArea.sendKeys(textMessage);
 	}
-	
+
 	public static void scrolltoElement() {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0,300)");
 	}
-	
+
 	public static String generateTicketNumber() {
-        char[] letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
-        Random random = new Random();
-        char randomLetter = letters[random.nextInt(letters.length)];
-        int randomNumber = random.nextInt(100000);
-        String ticketNumber = Character.toUpperCase(randomLetter) + Integer.toString(randomNumber);
-        return ticketNumber;
-    }
+		char[] letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
+		Random random = new Random();
+		char randomLetter = letters[random.nextInt(letters.length)];
+		int randomNumber = random.nextInt(100000);
+		String ticketNumber = Character.toUpperCase(randomLetter) + Integer.toString(randomNumber);
+		return ticketNumber;
+	}
+
 	public static void actionKeysEnter() {
 		Actions actions = new Actions(driver);
 		actions.sendKeys(Keys.ENTER);
 	}
-	public static void waitforloadertoStop(){
-		 WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(30));
-		WebElement loaderElement = driver.findElement(By.xpath("//img[@src='https://www.spicejet.com/public/inline-loader.gif']"));
+
+	public static void waitforloadertoStop() {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		WebElement loaderElement = driver
+				.findElement(By.xpath("//img[@src='https://www.spicejet.com/public/inline-loader.gif']"));
 		wait.until(ExpectedConditions.invisibilityOf(loaderElement));
 	}
-	
+
 	public static void refreshPage() {
 		driver.navigate().refresh();
 	}
-	
+
 	public static void clickAction(WebElement element) {
 		Actions actions = new Actions(driver);
 		actions.click(element).build().perform();
 	}
-	
+
 	public static void javaScriptClick(WebElement element) {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].scrollIntoView();", element);
 		element.click();
 	}
-	
-	public static void waitforloaderToStop1(){
-		 WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(15));
-		WebElement loaderElement = driver.findElement(By.xpath("//img[@src='https://www.spicejet.com/public/loader.gif']"));
+
+	public static void waitforloaderToStop1() {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+		WebElement loaderElement = driver
+				.findElement(By.xpath("//img[@src='https://www.spicejet.com/public/loader.gif']"));
 		wait.until(ExpectedConditions.invisibilityOf(loaderElement));
 	}
+
 	public static void waitforloaderToStop() {
-	    By loaderLocator = By.xpath("//img[@src='https://www.spicejet.com/public/loader.gif']");
-	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
-	        WebElement loaderElement = driver.findElement(loaderLocator);
-	        wait.until(ExpectedConditions.invisibilityOf(loaderElement));
+		By loaderLocator = By.xpath("//img[@src='https://www.spicejet.com/public/loader.gif']");
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+		WebElement loaderElement = driver.findElement(loaderLocator);
+		wait.until(ExpectedConditions.invisibilityOf(loaderElement));
 	}
 
-	
 	public void click(WebElement element) {
 		Actions actions = new Actions(driver);
-		Wait<WebDriver> fluentWait = new FluentWait<>(driver)
-			    .withTimeout(Duration.ofSeconds(30))
-			    .pollingEvery(Duration.ofSeconds(5))
-			    .ignoring(NoSuchElementException.class)
-			    .ignoring(JSONException.class)
-			    .ignoring(StaleElementReferenceException.class);
-			WebElement ClickElement = fluentWait.until(driver -> element);
-			actions.click(ClickElement).build().perform();
+		Wait<WebDriver> fluentWait = new FluentWait<>(driver).withTimeout(Duration.ofSeconds(30))
+				.pollingEvery(Duration.ofSeconds(5)).ignoring(NoSuchElementException.class)
+				.ignoring(JSONException.class).ignoring(StaleElementReferenceException.class);
+		WebElement ClickElement = fluentWait.until(driver -> element);
+		actions.click(ClickElement).build().perform();
 	}
-	
+
+	public static void setImplicitWait(Duration time) {
+		driver.manage().timeouts().implicitlyWait(time);
+	}
+
+	public static void waitUntilLoadingCloses() {
+		try {
+			By loaderElement = By.xpath("//img[@src='https://www.spicejet.com/public/loader.gif'] | //img[@src='https://www.spicejet.com/public/inline-loader.gif']");
+			setImplicitWait(0);
+			for (int i = 0; i < 3; ++i) {
+				try {
+					(new WebDriverWait(driver, Duration.ofSeconds(30L)))
+							.until(ExpectedConditions.visibilityOfElementLocated(loaderElement));
+				} catch (Exception var10) {
+					break;
+				}
+				try {
+					(new WebDriverWait(driver, Duration.ofSeconds(60L)))
+							.until(ExpectedConditions.visibilityOfElementLocated(loaderElement));
+				} catch (Exception var9) {
+					break;
+				}
+			}
+			logInfo("Waited until loading Closes");
+		} catch (Exception var11) {
+		} finally {
+			setImplicitWait(Duration.ofSeconds((long) FrameWorkConstants.TIME_OUT_SECONDS));
+		}
+	}
+
+	public static void navigateToPreviousPage() {
+		driver.navigate().back();
+	}
+
 }

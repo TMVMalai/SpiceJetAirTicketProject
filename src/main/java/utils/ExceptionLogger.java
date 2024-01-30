@@ -26,5 +26,11 @@ public class ExceptionLogger {
             logger.log(Level.SEVERE, "Exception occurred: ", e);
         }
     }
+    
+    public static void logInfo(String message) {
+        if (logger != null) {
+            logger.log(Level.INFO, message);
+        }
+    }
 
 }

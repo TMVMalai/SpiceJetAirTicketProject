@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="testCases.DemoTest">
+      <class name="testCases.HomePageValidation">
         <methods>
           <include name="suiteSetup"/>
           <include name="close"/>
-          <include name="roundTripFunctionality" invocation-numbers="0"/>
+          <include name="HomePageValidationFunctionality" invocation-numbers="0"/>
         </methods>
-      </class> <!-- testCases.DemoTest -->
+      </class> <!-- testCases.HomePageValidation -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

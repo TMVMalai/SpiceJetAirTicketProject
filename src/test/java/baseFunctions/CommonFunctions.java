@@ -24,7 +24,7 @@ public class CommonFunctions extends utils.Utilityclass {
 		passwordField.sendKeys(prop.getProperty("Password"));
 		WebElement Login = driver.findElement(By.xpath("//div[@data-testid='login-cta']"));
 		Login.click();
-		waitforloadertoStop();
+		waitUntilLoadingCloses();
 		setImplicitWait(10);
 		refreshPage();
 	}

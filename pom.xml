@@ -24,13 +24,13 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>4.16.0</version>
+			<version>4.17.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.testng/testng -->
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>7.8.0</version>
+			<version>7.9.0</version>
 		</dependency>
 		<!--https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
 		<dependency>
@@ -100,12 +100,6 @@
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-plugin-api</artifactId>
 			<version>3.9.6</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.webjars.npm/faker -->
-		<dependency>
-			<groupId>org.webjars.npm</groupId>
-			<artifactId>faker</artifactId>
-			<version>4.1.0</version>
 		</dependency>
 	</dependencies>
 

@@ -1,0 +1,12 @@
+{
+	"HomePageValidationFunctionality": [
+		{
+			"fromPlace":"Bengaluru",
+			"ToPlace":"Kolkata",
+			"checkInPageText": "Web Check-In",
+			"FlightPageText": "Flight Status",
+			"FlightRoute": "BLR to CCU",
+			"ManageBookingPageText": "Manage Booking"
+		}
+	]
+}

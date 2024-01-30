@@ -6,7 +6,7 @@ import baseFunctions.CommonFunctions;
 import spiceJet.Modules.Modules;
 import spicejet.DDD.dataproviders.DataProviderClasses;
 
-public class DemoTest extends CommonFunctions {
+public class FlightSearchValidation extends CommonFunctions {
 	
 	@SuppressWarnings("unchecked")
 	@Test(enabled =true, groups = "Regression",dataProviderClass=DataProviderClasses.class,dataProvider="getRegistrationData")

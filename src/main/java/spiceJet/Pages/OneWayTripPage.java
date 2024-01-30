@@ -90,7 +90,8 @@ public class OneWayTripPage extends Utilityclass {
 	@FindBy(xpath="//div[text()='Modify']")
 	private WebElement modifyButton;
 	
-	
+	@FindBy(xpath="//div[@data-testid='common-proceed-to-pay']")
+	private WebElement proceedtoPayButton;
 	
 	public void SelectFromAndDestination(String fromOrDestination, String fromOrDestinationPlace) {
 		 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
@@ -341,6 +342,10 @@ public class OneWayTripPage extends Utilityclass {
 
 	public void clickModifyButton() {
 		modifyButton.click();
+	}
+	
+	public void clickProceedtoPay() {
+		proceedtoPayButton.click();
 	}
 	
 }

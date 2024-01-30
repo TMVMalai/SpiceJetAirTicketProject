@@ -13,4 +13,9 @@ public class DataProviderClasses {
 	public Object[] getJsonData(Method m) {
 		return jsonUtils.readMultiJsonData("registrationData.json", m.getName());
 	}
+	
+	@DataProvider(name ="getHomePageData")
+	public Object[] getHomePageJsonData(Method m) {
+		return jsonUtils.readMultiJsonData("homePageData.json", m.getName());
+	}
 }

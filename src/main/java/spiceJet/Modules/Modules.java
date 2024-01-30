@@ -2,13 +2,13 @@ package spiceJet.Modules;
 
 import static org.testng.Assert.assertEquals;
 
-import java.util.Arrays;
 import java.util.HashMap;
 
 import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 
+import spiceJet.Pages.HomePage;
 import spiceJet.Pages.OneWayTripPage;
 import spiceJet.Pages.RegistrationPage;
 import spiceJet.Pages.RoundTripPage;
@@ -19,6 +19,7 @@ public class Modules extends Utilityclass {
 	RegistrationPage registerPage;
 	OneWayTripPage oneWayPage;
 	RoundTripPage roundTripPage;
+	HomePage homepage;
 	Map<String, Object> data;
 
 	public Modules(Map<String, Object> data, WebDriver driver) {
@@ -26,6 +27,7 @@ public class Modules extends Utilityclass {
 		this.registerPage = new RegistrationPage(driver);
 		this.oneWayPage = new OneWayTripPage(driver);
 		this.roundTripPage = new RoundTripPage(driver);
+		this.homepage = new HomePage(driver);
 		this.data = data;
 	}
 
@@ -76,23 +78,25 @@ public class Modules extends Utilityclass {
 		oneWayPage.clickCheckBox();
 		oneWayPage.clickContinue();
 		oneWayPage.clickContinueButton();
-		waitforloaderToStop();
+		waitUntilLoadingCloses();
 		oneWayPage.clickCheckBoxBasedOnField(checkBoxTexts[0]);
 		oneWayPage.clickCheckBoxBasedOnField(checkBoxTexts[1]);
 		bookingPageAssertions();
 		oneWayPage.sendIDNumber(data.get("StudentID").toString());
 		oneWayPage.clickTravellerContinue();
-		waitforloaderToStop();
+		waitUntilLoadingCloses();
 		oneWayPage.clickaddButton();
-		waitforloaderToStop();
+		waitUntilLoadingCloses();
 		oneWayPage.clickRandomSeat(oneWayPage.getTextOfAvailableSeatNumbers());
 		oneWayPage.waitForLoaderComplete("loader.gif");
 		oneWayPage.clickPrivateSeatCheckbox();
 		setImplicitWait(5);
 		oneWayPage.clickFooterContinueButton();
 		setImplicitWait(10);
-		waitforloaderToStop();
+		waitUntilLoadingCloses();
+		oneWayPage.clickCloseIcon();
 		paymentPageActionsAndAssertions();
+		oneWayPage.clickProceedtoPay();
 	}
 
 	public void bookingPageAssertions() {
@@ -140,8 +144,8 @@ public class Modules extends Utilityclass {
 		int day = roundTripPage.getFutureDate(5);
 		int nextMonthDay = roundTripPage.getFutureDate(4);
 		String nextMonth = roundTripPage.getFutureMonth(2);
-		roundTripPage.selectDateSelection("Departure Date",month,year,day);
-		roundTripPage.selectDateSelection("Return Date",nextMonth,year,nextMonthDay);
+		roundTripPage.selectDateSelection("Departure Date", month, year, day);
+		roundTripPage.selectDateSelection("Return Date", nextMonth, year, nextMonthDay);
 		roundTripPage.ClickRadioButton("Students");
 		roundTripPage.clickSearchFlight();
 		setImplicitWait(10);
@@ -164,9 +168,11 @@ public class Modules extends Utilityclass {
 		roundTripPage.clickFooterContinueButton();
 		setImplicitWait(10);
 		waitforloaderToStop();
+		roundTripPage.clickCloseIcon();
 		PaymentPageActionsAndAssertions();
+		roundTripPage.clickProceedtoPay();
 	}
-	
+
 	public void BookingPageAssertions() {
 		assertEquals(data.get("Title").toString(), roundTripPage.getTextTitle());
 		assertEquals(data.get("firstName").toString(), roundTripPage.getTextFirstName());
@@ -197,6 +203,22 @@ public class Modules extends Utilityclass {
 				break;
 			}
 		}
+	}
+
+	public void HomePageValidation() {
+		homepage.clickCheckIn();
+		assertEquals(homepage.getTextCheckIn(), data.get("checkInPageText").toString());
+		homepage.clickFlightStatus();
+		assertEquals(homepage.getTextFlightStatus(), data.get("FlightPageText").toString());
+		homepage.clickDepartureDropdown();
+		homepage.clickDropdownOption("Today");
+		homepage.SelectFromAndDestination("From", data.get("fromPlace").toString());
+		homepage.SelectFromAndDestination("To", data.get("ToPlace").toString());
+		homepage.clicksearchFlights();
+		assertEquals(homepage.getTextFlightRoute(), data.get("FlightRoute").toString());
+		navigateToPreviousPage();
+		homepage.clickmanageBooking();
+		assertEquals(homepage.getTextManageBooking(), data.get("ManageBookingPageText"));
 	}
 
 }
