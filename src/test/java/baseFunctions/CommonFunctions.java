@@ -16,15 +16,15 @@ public class CommonFunctions extends utils.Utilityclass {
 		driver = initialization();
 		WebElement loginButton = driver.findElement(By.xpath("//div[text()='Login']"));
 		loginButton.click();
+		WebElement emailRadioButton = driver.findElement(By.xpath("(//div[text()='Email']//parent::div/../div[contains(@class,'css-1dbjc4n r-zso239') or (@class='css-1dbjc4n')])[1]"));
+		emailRadioButton.click();
 		WebElement mobileNumberField = driver.findElement(By.xpath("//input[@data-testid='user-mobileno-input-box']"));
-		mobileNumberField.sendKeys(prop.getProperty("MobileNumber"));
+		mobileNumberField.sendKeys(prop.getProperty("emailId"));
 		WebElement passwordField = driver.findElement(By.xpath("//input[@data-testid='password-input-box-cta']"));
 		passwordField.sendKeys(prop.getProperty("Password"));
 		WebElement Login = driver.findElement(By.xpath("//div[@data-testid='login-cta']"));
 		Login.click();
-		WebElement closebutton = driver.findElement(By.xpath("(//div[@class='css-1dbjc4n r-1loqt21 r-1otgn73']//parent::div//following-sibling::*[@fill-rule='nonzero'])[1]"));
 		waitforloadertoStop();
-		//closebutton.click();
 		setImplicitWait(10);
 		refreshPage();
 	}
